@@ -14,6 +14,9 @@ func main() {
 	var taskItems = []string{ shortGoCourse, pythonCourse, workOnFiverrProfile, workOnFiverrPortfolio, workOnFiverrGig, reward }
 	// Print the welcome message and todo list
 	printTasks(taskItems)
+	// Add a new task
+	fmt.Println()
+	addTask(taskItems, "Go for a run")
 }
 
 func printTasks (taskItems []string) {
@@ -23,4 +26,9 @@ func printTasks (taskItems []string) {
 	}
 	fmt.Println("#########################################")
 
+}
+
+func addTask(taskItems []string, newTask string) {
+	taskItems = append(taskItems, newTask)
+	printTasks(taskItems)
 }
