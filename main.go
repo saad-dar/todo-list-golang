@@ -13,6 +13,10 @@ func main() {
 
 	var taskItems = []string{ shortGoCourse, pythonCourse, workOnFiverrProfile, workOnFiverrPortfolio, workOnFiverrGig, reward }
 	// Print the welcome message and todo list
+	printTasks(taskItems)
+}
+
+func printTasks (taskItems []string) {
 	fmt.Println("###### Welcome to our Todo List App! ######")
 	for i, item := range taskItems {
 		fmt.Printf("%d. %s\n", i+1, item)
