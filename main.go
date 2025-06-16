@@ -1,38 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
+var shortGoCourse = "Watch Go crash course"
+var pythonCourse = "Watch Python crash course"
+var workOnFiverrProfile = "Work on Fiverr profile"
+var workOnFiverrPortfolio = "Work on Fiverr portfolio"
+var workOnFiverrGig = "Work on Fiverr gig"
+var reward = "Reward myself with a fruit juice"
+
+var taskItems = []string{ shortGoCourse, pythonCourse, workOnFiverrProfile, workOnFiverrPortfolio, workOnFiverrGig, reward }
 
 func main() {
 
-	var shortGoCourse = "Watch Go crash course"
-	var pythonCourse = "Watch Python crash course"
-	var workOnFiverrProfile = "Work on Fiverr profile"
-	var workOnFiverrPortfolio = "Work on Fiverr portfolio"
-	var workOnFiverrGig = "Work on Fiverr gig"
-	var reward = "Reward myself with a fruit juice"
+	fmt.Println("###### My Todo List ! ######")
 
-	var taskItems = []string{ shortGoCourse, pythonCourse, workOnFiverrProfile, workOnFiverrPortfolio, workOnFiverrGig, reward }
-	// Print the welcome message and todo list
-	printTasks(taskItems)
-	// Add a new task
-	fmt.Println()
-	taskItems = addTask(taskItems, "Go for a run")
-	taskItems = addTask(taskItems, "Practice Go programming")
-
-	fmt.Println("###### Updated Todo List ######")
-	printTasks(taskItems)
+	http.HandleFunc("/", helloUser)
+	http.HandleFunc("/show-tasks", showTasks)
+	http.ListenAndServe(":8080", nil)
 }
 
-func printTasks (taskItems []string) {
-	fmt.Println("###### Welcome to our Todo List App! ######")
+func helloUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, User! Welcome to your Todo List!")
+}
+
+func showTasks(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "###### My Todo List ! ######\n")
+	fmt.Fprintf(w, "#########################################\n")
 	for i, item := range taskItems {
-		fmt.Printf("%d. %s\n", i+1, item)
+		fmt.Fprintf(w, "%d. %s\n", i+1, item)
 	}
-	fmt.Println("#########################################")
-
-}
-
-func addTask(taskItems []string, newTask string) []string {
-	taskItems = append(taskItems, newTask)
-	return taskItems
+	fmt.Fprintf(w, "#########################################\n")
 }
